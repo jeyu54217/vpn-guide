@@ -4,205 +4,193 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<meta name="description" content="專屬跨境專線 · 三網優化高速節點連線配置指南">
-<title>專屬跨境專線 · 連線配置指南</title>
+<meta name="description" content="專屬跨境專線 · 美西三網優化 VPS 高速節點連線配置指南">
+<title>專線節點連線指南 · 三網優化高速 VPS</title>
 <style>
   :root {
-    --bg: #fbfbfd;
+    --bg-base: #fbfbfd;
     --card-bg: #ffffff;
-    --card-hover: #ffffff;
+    --card-subtle: #f5f5f7;
+    --card-hover: #f0f0f4;
     --text-primary: #1d1d1f;
     --text-secondary: #6e6e73;
     --text-tertiary: #86868b;
-    --border: rgba(0, 0, 0, 0.08);
-    --border-hover: rgba(0, 113, 227, 0.35);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 113, 227, 0.3);
     --accent: #0071e3;
     --accent-hover: #0077ed;
-    --accent-soft: rgba(0, 113, 227, 0.08);
-    --accent-text: #0071e3;
+    --accent-active: #006edb;
+    --accent-light: rgba(0, 113, 227, 0.08);
     --success: #34c759;
-    --success-soft: rgba(52, 199, 89, 0.1);
-    --btn-secondary: #f5f5f7;
-    --btn-secondary-hover: #e8e8ed;
-    --radius-lg: 20px;
+    --success-light: rgba(52, 199, 89, 0.12);
+    --radius-xl: 24px;
+    --radius-lg: 18px;
     --radius-md: 14px;
-    --radius-sm: 10px;
     --radius-pill: 980px;
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
-    --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
-    --ease: cubic-bezier(0.25, 1, 0.5, 1);
+    --shadow-md: 0 6px 24px -4px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 12px 36px -6px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-
   body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, PingFang TC, Helvetica Neue, Arial, sans-serif;
+    line-height: 1.5;
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(48px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
     min-height: 100vh;
     min-height: 100dvh;
-    background-color: var(--bg);
-    background-image:
-      radial-gradient(1200px 600px at 50% -5%, rgba(0, 113, 227, 0.05), transparent 70%),
-      radial-gradient(800px 500px at 100% 20%, rgba(52, 199, 89, 0.03), transparent 60%);
-    background-attachment: fixed;
-    color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.5;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: max(48px, env(safe-area-inset-bottom));
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
+    -webkit-font-smoothing: antialiased;
   }
 
-  .wrap {
-    max-width: 680px;
+  .container {
+    max-width: 760px;
     margin: 0 auto;
-    padding: clamp(32px, 6vw, 56px) 20px 0;
   }
 
-  /* Header / Hero */
-  .hero {
+  /* Header */
+  .header {
     text-align: center;
-    margin-bottom: 36px;
+    padding: clamp(24px, 5vw, 44px) 12px clamp(28px, 6vw, 40px);
   }
-  .badge {
+  .brand-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 5px 14px;
-    background: var(--accent-soft);
-    border-radius: var(--radius-pill);
-    color: var(--accent-text);
+    background: var(--accent-light);
+    color: var(--accent);
     font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: -0.1px;
-    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
   }
-  .badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .hero h1 {
-    font-size: clamp(26px, 5.5vw, 34px);
+  .brand-badge svg { width: 14px; height: 14px; fill: currentColor; }
+  .header h1 {
+    font-size: clamp(28px, 6.5vw, 38px);
     font-weight: 700;
     letter-spacing: -0.5px;
     color: var(--text-primary);
-    line-height: 1.25;
-    margin-bottom: 10px;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
-  .hero p {
+  .header p {
+    font-size: clamp(14px, 3.8vw, 16px);
     color: var(--text-secondary);
-    font-size: clamp(14px, 3.5vw, 15px);
-    line-height: 1.6;
-    max-width: 520px;
+    max-width: 580px;
     margin: 0 auto;
+    line-height: 1.6;
   }
 
-  /* Blocks */
-  .block {
+  /* Section Card */
+  .section-card {
     background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: clamp(20px, 4vw, 28px);
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s var(--ease);
-  }
-  .block:hover {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
+    padding: clamp(20px, 4.5vw, 32px);
+    margin-bottom: 24px;
+    transition: border-color 0.25s var(--ease-apple);
   }
-
-  .block-header {
+  .section-head {
     display: flex;
     align-items: baseline;
     gap: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
-  .block-index {
-    font-size: 12px;
+  .section-step {
+    font-size: 13px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
-  .block-title {
-    font-size: 19px;
+  .section-head h2 {
+    font-size: clamp(20px, 4.5vw, 22px);
     font-weight: 700;
-    letter-spacing: -0.2px;
-    color: var(--text-primary);
+    letter-spacing: -0.3px;
   }
-  .block-desc {
-    color: var(--text-tertiary);
-    font-size: 13px;
-    margin-bottom: 20px;
+  .section-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 22px;
   }
 
-  /* Block 1: Platform Grid */
-  .grid {
+  /* Block 1: Client Grid */
+  .client-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
-  @media (max-width: 480px) {
-    .grid {
+  @media (max-width: 520px) {
+    .client-grid {
       grid-template-columns: 1fr;
       gap: 12px;
     }
   }
 
-  .plat-card {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 16px;
+  .client-item {
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    justify-content: space-between;
+    background: var(--card-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+    transition: all 0.25s var(--ease-apple);
   }
-  .plat-card:hover {
+  .client-item:hover {
+    background: #ffffff;
     border-color: var(--border-hover);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
 
-  .plat-header {
+  .client-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 14px;
   }
-  .plat-icon {
-    width: 36px;
-    height: 36px;
+  .client-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f5f7;
-    border-radius: 10px;
-    color: var(--text-primary);
     flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   }
-  .plat-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+  .client-icon-wrap svg {
+    width: 24px;
+    height: 24px;
   }
-  .plat-info h3 {
-    font-size: 15px;
-    font-weight: 600;
+  .client-meta h3 {
+    font-size: 16px;
+    font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.2px;
+    line-height: 1.2;
+    margin-bottom: 2px;
   }
-  .plat-info span {
+  .client-meta span {
     font-size: 12px;
     color: var(--text-tertiary);
   }
 
-  .plat-actions {
+  .btn-group {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 8px;
     margin-top: auto;
   }
   .btn {
@@ -211,197 +199,250 @@
     justify-content: center;
     gap: 6px;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    height: 36px;
-    padding: 0 14px;
-    border-radius: var(--radius-sm);
-    transition: background-color 0.15s var(--ease), transform 0.1s var(--ease);
-    border: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: var(--radius-pill);
+    min-height: 40px;
+    transition: all 0.2s var(--ease-apple);
     cursor: pointer;
-    text-align: center;
-  }
-  .btn:active {
-    transform: scale(0.98);
+    border: none;
+    outline: none;
   }
   .btn-primary {
     background: var(--accent);
     color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
   }
   .btn-primary:hover {
     background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.35);
+  }
+  .btn-primary:active {
+    background: var(--accent-active);
+    transform: scale(0.98);
   }
   .btn-secondary {
-    background: var(--btn-secondary);
+    background: #ffffff;
     color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
   .btn-secondary:hover {
-    background: var(--btn-secondary-hover);
+    background: var(--card-subtle);
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+  .btn-secondary:active {
+    transform: scale(0.98);
   }
 
-  /* Block 2: One-Click Import */
-  .import-box {
+  /* Block 2: One-tap Import */
+  .import-container {
     text-align: center;
-    padding: 10px 0 6px;
+    padding: 12px 8px;
   }
-  .status-pill {
+  .import-status {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
+    gap: 8px;
+    background: var(--card-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: var(--radius-pill);
-    font-size: 12.5px;
-    margin-bottom: 18px;
-    background: #f5f5f7;
+    padding: 8px 18px;
+    font-size: 13px;
     color: var(--text-secondary);
-    transition: all 0.3s var(--ease);
+    margin-bottom: 20px;
+    transition: all 0.3s var(--ease-apple);
   }
-  .status-pill.ready {
-    background: var(--success-soft);
-    color: #248a3d;
-    font-weight: 500;
+  .import-status.ready {
+    background: var(--success-light);
+    border-color: rgba(52, 199, 89, 0.3);
+    color: #1e8739;
+    font-weight: 600;
   }
   .status-dot {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #86868b;
+    background: #8e8e93;
   }
-  .status-pill.ready .status-dot {
+  .import-status.ready .status-dot {
     background: var(--success);
+    box-shadow: 0 0 8px rgba(52, 199, 89, 0.6);
   }
 
-  .btn-hero-import {
-    display: flex;
+  .import-btn-hero {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 100%;
-    max-width: 360px;
-    height: 52px;
-    margin: 0 auto;
-    border-radius: var(--radius-pill);
-    background: var(--accent);
+    max-width: 380px;
+    min-height: 52px;
+    padding: 14px 28px;
+    background: linear-gradient(180deg, #0077ed 0%, #0071e3 100%);
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
     text-decoration: none;
-    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.28);
-    transition: background-color 0.2s var(--ease), transform 0.15s var(--ease), box-shadow 0.2s var(--ease), opacity 0.2s var(--ease);
-    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 24px -4px rgba(0, 113, 227, 0.4), 0 2px 6px rgba(0, 113, 227, 0.2);
+    transition: all 0.2s var(--ease-apple);
     cursor: pointer;
+    border: none;
   }
-  .btn-hero-import:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 8px 24px rgba(0, 113, 227, 0.35);
+  .import-btn-hero:hover {
+    box-shadow: 0 12px 32px -4px rgba(0, 113, 227, 0.5), 0 4px 10px rgba(0, 113, 227, 0.25);
+    transform: translateY(-1px);
   }
-  .btn-hero-import:active {
+  .import-btn-hero:active {
     transform: scale(0.98);
   }
-  .btn-hero-import.disabled {
-    opacity: 0.45;
-    pointer-events: none;
+  .import-btn-hero.disabled {
+    background: #d1d1d6;
+    color: #8e8e93;
     box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
   }
-  .import-tip {
+  .import-hint {
     margin-top: 14px;
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--text-tertiary);
   }
 
-  /* Block 3: FAQ Accordion */
+  /* Block 3: Q&A Accordion */
   .faq-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
   .faq-item {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+    background: var(--card-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    background: #ffffff;
-    transition: border-color 0.2s var(--ease);
+    transition: all 0.2s var(--ease-apple);
   }
   .faq-item[open] {
-    border-color: rgba(0, 113, 227, 0.3);
+    background: #ffffff;
+    border-color: rgba(0, 113, 227, 0.25);
+    box-shadow: var(--shadow-sm);
   }
-  .faq-item summary {
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 16px 18px;
     font-size: 14.5px;
     font-weight: 600;
     color: var(--text-primary);
     cursor: pointer;
     list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
     user-select: none;
   }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--text-tertiary);
-    display: flex;
+  .faq-summary::-webkit-details-marker { display: none; }
+  
+  /* Unified Tag Badge */
+  .q-badge {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s var(--ease), color 0.2s var(--ease);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+    flex-shrink: 0;
+    min-width: 58px;
+    text-align: center;
+  }
+  .badge-plan { background: rgba(0, 113, 227, 0.1); color: #0071e3; }
+  .badge-billing { background: rgba(52, 199, 89, 0.12); color: #1e8739; }
+  .badge-topup { background: rgba(255, 149, 0, 0.12); color: #c96d00; }
+  .badge-speed { background: rgba(175, 82, 222, 0.12); color: #893cb6; }
+  .badge-privacy { background: rgba(48, 176, 199, 0.12); color: #0b8296; }
+  .badge-security { background: rgba(255, 45, 85, 0.1); color: #d61845; }
+  .badge-install { background: rgba(88, 86, 214, 0.1); color: #4340c4; }
+  .badge-setting { background: rgba(142, 142, 147, 0.15); color: #48484a; }
+
+  .faq-title {
+    flex: 1;
+    line-height: 1.4;
+  }
+  .faq-icon {
+    font-size: 16px;
+    color: var(--text-tertiary);
+    transition: transform 0.25s var(--ease-apple);
+    margin-left: 6px;
     flex-shrink: 0;
   }
   .faq-item[open] .faq-icon {
     transform: rotate(45deg);
     color: var(--accent);
   }
-  .faq-body {
-    padding: 0 18px 18px;
+  .faq-content {
+    padding: 0 18px 18px 18px;
     font-size: 13.5px;
-    line-height: 1.7;
     color: var(--text-secondary);
+    line-height: 1.7;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    margin-top: 2px;
+    padding-top: 12px;
   }
-  .faq-body p + p {
+  .faq-content p + p {
     margin-top: 8px;
   }
-  .faq-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-right: 6px;
-    vertical-align: middle;
+  .faq-content strong {
+    color: var(--text-primary);
   }
-  .tag-privacy { background: #e8f5e9; color: #2e7d32; }
-  .tag-security { background: #e3f2fd; color: #1565c0; }
-  .tag-speed { background: #fff3e0; color: #e65100; }
+
+  /* Plan Table in FAQ */
+  .plan-table {
+    width: 100%;
+    margin: 10px 0;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .plan-table th, .plan-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .plan-table th {
+    color: var(--text-tertiary);
+    font-weight: 600;
+  }
+  .plan-table td {
+    color: var(--text-primary);
+  }
 
   /* Footer */
   .footer {
     text-align: center;
-    margin-top: 36px;
+    padding: 32px 12px 16px;
     font-size: 12px;
     color: var(--text-tertiary);
+    line-height: 1.6;
   }
 
   /* Toast Notification */
   .toast {
     position: fixed;
-    bottom: 28px;
+    bottom: max(24px, env(safe-area-inset-bottom));
     left: 50%;
     transform: translate(-50%, 20px);
     background: rgba(29, 29, 31, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 500;
     padding: 10px 20px;
     border-radius: var(--radius-pill);
-    font-size: 13px;
-    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s var(--ease-apple);
     z-index: 100;
   }
   .toast.show {
@@ -412,258 +453,372 @@
 </head>
 <body>
 
-<main class="wrap">
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      <span>美西 CN2 GIA · 9929 · CMIN2 頂規專線</span>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      美西三網優化專線 · 頂級企業骨幹
     </div>
-    <h1>專屬跨境專線 · 連線配置指南</h1>
-    <p>自建三網直連優化 VPS 骨幹架構，提供低延遲、高隱私與全天候穩定連線體驗。</p>
+    <h1>專線節點連線配置指南</h1>
+    <p>基於美西電信 CN2 GIA、聯通 9929、移動 CMIN2 優化骨幹 · 提供極致低延遲、高隱私與全天候穩定連線</p>
   </header>
 
   <!-- Block 1: 下載客戶端 -->
-  <section class="block" aria-label="下載客戶端">
-    <div class="block-header">
-      <span class="block-index">01</span>
-      <h2 class="block-title">下載開源客戶端</h2>
+  <section class="section-card" aria-label="下載客戶端">
+    <div class="section-head">
+      <span class="section-step">Step 01</span>
+      <h2>下載客戶端</h2>
     </div>
-    <p class="block-desc">推薦使用官方開源 Hiddify 客戶端（無廣告 · 全功能支援）</p>
+    <p class="section-desc">開源免費 · 無廣告 · 推薦使用官方 Hiddify 客戶端</p>
 
-    <div class="grid">
+    <div class="client-grid">
       <!-- iOS -->
-      <div class="plat-card">
-        <div class="plat-header">
-          <div class="plat-icon">
+      <div class="client-item">
+        <div class="client-header">
+          <div class="client-icon-wrap">
             <!-- Apple Icon -->
-            <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.53-10.02-11.64-21.46-15.34-34.33-3.7-12.87-5.55-24.96-5.55-36.27 0-14.64 3.38-26.79 10.14-36.45 6.76-9.66 15.54-14.69 26.33-15.09 4.36 0 9.58 1.25 15.67 3.75 6.09 2.5 10.08 3.86 11.97 4.09 2.5.34 6.31-.95 11.44-3.86 5.13-2.91 9.94-4.24 14.42-4 12.01.68 21.6 5.16 28.77 13.44-10.45 6.35-15.54 15.3-15.28 26.85.25 9.4 3.99 17.21 11.22 23.43 7.23 6.22 15.82 9.69 25.76 10.41-2.45 7.64-5.39 15.17-8.81 22.59zm-31.84-106.87c0-7.37 2.65-14.32 7.95-20.85 5.3-6.53 11.9-10.58 19.8-12.15.58 2.37.87 4.67.87 6.9 0 7.4-2.73 14.48-8.2 21.23-5.46 6.75-12.16 10.74-20.09 11.97-.07-2.37-.33-4.74-.33-7.1z"/></svg>
+            <svg viewBox="0 0 170 170" fill="#1d1d1f">
+              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.74 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.07-7.6-7.85-11.7-14.34-6.3-9.98-11.19-21.57-14.67-34.78-3.48-13.2-5.22-25.04-5.22-35.51 0-14.54 3.49-26.4 10.47-35.58 6.98-9.18 15.77-13.88 26.37-14.1 4.58 0 9.77 1.25 15.57 3.75 5.8 2.5 9.7 3.81 11.7 3.93 1.54 0 5.48-1.37 11.83-4.11 6.34-2.74 11.84-3.99 16.5-3.74 12.75.76 22.84 5.39 30.27 13.88-11.2 6.75-16.68 16.03-16.44 27.84.24 9.38 3.82 17.24 10.74 23.57 6.92 6.34 15.22 9.99 24.9 10.97-2.29 7.07-5.25 14.3-8.87 21.69zM119.22 31.84c0-7.39 2.66-14.41 7.98-21.05 5.32-6.64 11.88-10.47 19.68-11.49.22 1.3.33 2.4.33 3.3 0 7.39-2.77 14.53-8.31 21.41-5.54 6.88-12.1 10.76-19.68 11.64z"/>
+            </svg>
           </div>
-          <div class="plat-info">
+          <div class="client-meta">
             <h3>iOS</h3>
-            <span>iPhone / iPad</span>
+            <span>iPhone · iPad</span>
           </div>
         </div>
-        <div class="plat-actions">
-          <a class="btn btn-primary" href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" rel="noopener">App Store 下載</a>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" rel="noopener">
+            App Store 官方下載
+          </a>
+          <a class="btn btn-secondary" href="#faq-apple-id">
+            海外 Apple ID 說明
+          </a>
         </div>
       </div>
 
       <!-- Mac -->
-      <div class="plat-card">
-        <div class="plat-header">
-          <div class="plat-icon">
-            <!-- Mac Icon (Apple) -->
-            <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.53-10.02-11.64-21.46-15.34-34.33-3.7-12.87-5.55-24.96-5.55-36.27 0-14.64 3.38-26.79 10.14-36.45 6.76-9.66 15.54-14.69 26.33-15.09 4.36 0 9.58 1.25 15.67 3.75 6.09 2.5 10.08 3.86 11.97 4.09 2.5.34 6.31-.95 11.44-3.86 5.13-2.91 9.94-4.24 14.42-4 12.01.68 21.6 5.16 28.77 13.44-10.45 6.35-15.54 15.3-15.28 26.85.25 9.4 3.99 17.21 11.22 23.43 7.23 6.22 15.82 9.69 25.76 10.41-2.45 7.64-5.39 15.17-8.81 22.59zm-31.84-106.87c0-7.37 2.65-14.32 7.95-20.85 5.3-6.53 11.9-10.58 19.8-12.15.58 2.37.87 4.67.87 6.9 0 7.4-2.73 14.48-8.2 21.23-5.46 6.75-12.16 10.74-20.09 11.97-.07-2.37-.33-4.74-.33-7.1z"/></svg>
+      <div class="client-item">
+        <div class="client-header">
+          <div class="client-icon-wrap">
+            <!-- Mac Icon -->
+            <svg viewBox="0 0 24 24" fill="#1d1d1f">
+              <path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h7l-2 3v1h6v-1l-2-3h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11z"/>
+            </svg>
           </div>
-          <div class="plat-info">
+          <div class="client-meta">
             <h3>macOS</h3>
-            <span>Apple Silicon / Intel</span>
+            <span>MacBook · iMac (Apple/Intel)</span>
           </div>
         </div>
-        <div class="plat-actions">
-          <a class="btn btn-primary" href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" rel="noopener">Mac App Store</a>
-          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">官網 DMG 直載</a>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" rel="noopener">
+            官方直載 DMG 安裝檔
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">
+            GitHub Releases 備用
+          </a>
         </div>
       </div>
 
       <!-- Windows -->
-      <div class="plat-card">
-        <div class="plat-header">
-          <div class="plat-icon">
-            <!-- Official Microsoft Windows Logo SVG -->
-            <svg viewBox="0 0 88 88"><path d="M0 12.402l35.689-4.86.016 34.423-35.67.203zm35.67 33.529l.026 34.453L.027 75.48l-.02-31.743zm4.325-39.066L87.314 0v41.527l-47.319.376zm47.329 45.109l-.01 41.526-47.319-6.666-.021-34.912z"/></svg>
+      <div class="client-item">
+        <div class="client-header">
+          <div class="client-icon-wrap">
+            <!-- Authentic Windows 4-Square Logo -->
+            <svg viewBox="0 0 24 24">
+              <path fill="#f25022" d="M1 1h10v10H1z"/>
+              <path fill="#00a4ef" d="M1 13h10v10H1z"/>
+              <path fill="#7fba00" d="M13 1h10v10H13z"/>
+              <path fill="#ffb900" d="M13 13h10v10H13z"/>
+            </svg>
           </div>
-          <div class="plat-info">
+          <div class="client-meta">
             <h3>Windows</h3>
-            <span>Windows 10 / 11</span>
+            <span>Windows 10 · 11 (64-bit)</span>
           </div>
         </div>
-        <div class="plat-actions">
-          <a class="btn btn-primary" href="https://apps.microsoft.com/search?query=Hiddify" target="_blank" rel="noopener">Microsoft Store</a>
-          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">安裝包直載</a>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.exe" target="_blank" rel="noopener">
+            官方安裝包直載 (.exe)
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">
+            GitHub Releases 備用
+          </a>
         </div>
       </div>
 
       <!-- Android -->
-      <div class="plat-card">
-        <div class="plat-header">
-          <div class="plat-icon">
-            <!-- Official Android Bugdroid Logo SVG -->
-            <svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-1.0007s.4482-1.0007.9993-1.0007c.5516 0 .9997.4486.9997 1.0007s-.4481 1.0007-.9997 1.0007m-11.046 0c-.5511 0-.9993-.4486-.9993-1.0007s.4482-1.0007.9993-1.0007c.5516 0 .9997.4486.9997 1.0007s-.4481 1.0007-.9997 1.0007m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8 12 8s-3.5902.4116-5.1368 1.1504L4.841 5.6474a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/></svg>
+      <div class="client-item">
+        <div class="client-header">
+          <div class="client-icon-wrap">
+            <!-- Authentic Android Bugdroid Head -->
+            <svg viewBox="0 0 24 24" fill="#3ddc84">
+              <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v6c0 .83.67 1.5 1.5 1.5S5 16.33 5 15.5v-6C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5zm-4.97-4.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.62 2.23 12.58 2 11.5 2c-1.08 0-2.12.23-3.14.63L6.88 1.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C5.51 4.37 4.19 6.03 4 8h15c-.19-1.97-1.51-3.63-3.47-4.84zM9 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+            </svg>
           </div>
-          <div class="plat-info">
+          <div class="client-meta">
             <h3>Android</h3>
-            <span>手機 / 平板 / 車機</span>
+            <span>手機 · 平板 (支援華為/小米)</span>
           </div>
         </div>
-        <div class="plat-actions">
-          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" rel="noopener">Google Play</a>
-          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">官網 APK 直載</a>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" rel="noopener">
+            Google Play 商店下載
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Android-universal.apk" target="_blank" rel="noopener">
+            通用 APK 官方直載
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Block 2: 一鍵匯入 -->
-  <section class="block" aria-label="一鍵匯入">
-    <div class="block-header">
-      <span class="block-index">02</span>
-      <h2 class="block-title">一鍵匯入專屬節點</h2>
+  <section class="section-card" aria-label="一鍵匯入配置">
+    <div class="section-head">
+      <span class="section-step">Step 02</span>
+      <h2>一鍵匯入配置</h2>
     </div>
-    <p class="block-desc">點擊下方按鈕，自動喚醒客戶端並載入專線配置</p>
+    <p class="section-desc">安裝完成客戶端後，點擊下方按鈕即可自動喚醒 App 載入專屬節點</p>
 
-    <div class="import-box">
-      <div class="status-pill" id="statusPill">
+    <div class="import-container">
+      <div class="import-status" id="subStatus">
         <span class="status-dot"></span>
-        <span id="statusText">正在讀取專屬連線憑證…</span>
+        <span id="statusText">正在讀取專屬訂閱授權…</span>
       </div>
-
       <div>
-        <a class="btn-hero-import disabled" id="heroImportBtn" href="#">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>一鍵匯入 Hiddify</span>
-        </a>
+        <button class="import-btn-hero disabled" id="importBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+          ⚡ 一鍵導入 Hiddify
+        </button>
       </div>
-
-      <p class="import-tip">如已安裝 App，點擊將直接啟動並完成訂閱設定</p>
+      <p class="import-hint">提示：請由專屬激活連結開啟本頁 · 點擊後授權開啟 App 即完成配置</p>
     </div>
   </section>
 
-  <!-- Block 3: 常見問題 (隱私、安全與穩定性) -->
-  <section class="block" aria-label="常見問題">
-    <div class="block-header">
-      <span class="block-index">03</span>
-      <h2 class="block-title">服務架構與安全性常見問答</h2>
+  <!-- Block 3: Q&A 常見問題 (統一標籤格式) -->
+  <section class="section-card" aria-label="常見問題解答">
+    <div class="section-head">
+      <span class="section-step">Step 03</span>
+      <h2>常見問題解答</h2>
     </div>
-    <p class="block-desc">深入瞭解我們的專屬專線架構、安全加密與穩定性保障</p>
+    <p class="section-desc">業務方案、計費規則、線路特性與安裝設定完整說明</p>
 
     <div class="faq-list">
-      <!-- 隱私性 -->
+      <!-- Q1: 業務方案 -->
       <details class="faq-item">
-        <summary>
-          <span><span class="faq-tag tag-privacy">隱私性</span>我們的連線如何保障用戶隱私？會留下日誌嗎？</span>
+        <summary class="faq-summary">
+          <span class="q-badge badge-plan">方案規格</span>
+          <span class="faq-title">有哪些方案規格可以選擇？配額包含什麼？</span>
           <span class="faq-icon">+</span>
         </summary>
-        <div class="faq-body">
-          <p><strong>堅持嚴格的 Zero-Log（零日誌）架構：</strong>本服務為自主搭建與維運的專屬 VPS，完全不經任何第三方商業 VPN 服務商，絕無商業廣告追蹤、流量分析或連線歷史紀錄。</p>
-          <p>我們採用新一代 <strong>VLESS-Reality</strong> 協定，資料傳輸特徵偽裝為常規大型網站（如 Cloudflare）的合法 HTTPS 流量，在傳輸鏈路上杜絕了任何中間運營商的審查窺探。</p>
+        <div class="faq-content">
+          <p>我們提供三大標準專屬方案，均享受完整美西三網優化頻寬與企業級技術支援：</p>
+          <table class="plan-table">
+            <thead>
+              <tr><th>方案類型</th><th>專屬配額</th><th>適用場景</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>7 天方案</strong></td><td>30 GB 高速流量</td><td>短期商務出差、旅遊輕量使用</td></tr>
+              <tr><td><strong>14 天方案</strong></td><td>50 GB 高速流量</td><td>雙週差旅、海外會議與視訊需求</td></tr>
+              <tr><td><strong>30 天方案</strong></td><td>100 GB 高速流量</td><td>長期派駐、全月高頻辦公與影音</td></tr>
+            </tbody>
+          </table>
+          <p>所有方案均採用單人獨立佇列保障，同一條訂閱可同時匯入您的手機、筆電與平板多台設備。</p>
         </div>
       </details>
 
-      <!-- 安全性 -->
+      <!-- Q2: 計時規則 -->
       <details class="faq-item">
-        <summary>
-          <span><span class="faq-tag tag-security">安全性</span>技術上如何防範中間人攻擊與主動探測？</span>
+        <summary class="faq-summary">
+          <span class="q-badge badge-billing">計時規則</span>
+          <span class="faq-title">如果我在出發前就匯入，天數會立刻開始倒數嗎？</span>
           <span class="faq-icon">+</span>
         </summary>
-        <div class="faq-body">
-          <p><strong>前向保密與真實憑證借用：</strong>連線全程採用現代化 TLS 1.3 與 X25519 橢圓曲線進行端對端軍規加密，每次連線均生成獨立會話金鑰。</p>
-          <p>不同於傳統 VPN 容易被辨識與封鎖，Reality 技術徹底摒棄了易被特徵識別的自簽憑證，即便面對主動重放探測（Active Probing），伺服器端亦能直接轉發真實原廠握手，完全隱匿伺服器特徵。</p>
+        <div class="faq-content">
+          <p><strong>不會！</strong>我們採用業界最人性化的<strong>「首次連線才啟動（Start on First Use）」</strong>機制。</p>
+          <p>在台灣或出發前提前將訂閱匯入 App，帳號皆處於安全待機狀態（天數不倒數）。只有當您抵達目的地並<strong>第一次點擊連線按鈕時</strong>，伺服器才會正式開始計算天數，請放心提前在出發前配置完畢。</p>
         </div>
       </details>
 
-      <!-- 穩定性 -->
+      <!-- Q3: 續費加量 -->
       <details class="faq-item">
-        <summary>
-          <span><span class="faq-tag tag-speed">穩定性</span>什麼是「三網優化 VPS」？與一般廉價翻牆節點有何不同？</span>
+        <summary class="faq-summary">
+          <span class="q-badge badge-topup">續費加量</span>
+          <span class="faq-title">流量用完或天數到期怎麼辦？如何續費？</span>
           <span class="faq-icon">+</span>
         </summary>
-        <div class="faq-body">
-          <p><strong>美西企業級直連專線：</strong>我們部署在美西高成本的優化機房，深度整合了<strong>中國電信 CN2 GIA、中國聯通 9929/AS4837、中國移動 CMIN2</strong> 三大頂級跨境直連骨幹路徑。</p>
-          <p>在晚高峰（20:00 - 24:00）跨境網路壅塞時，三網優化線路能享有電信級的最高優先級 QoS 佇列保障，幾乎零丟包，無論是 4K 影片即點即播、大檔下載或低延遲連線皆能穩定順暢。</p>
+        <div class="faq-content">
+          <p>若在旅途中流量用盡或天數不足，隨時聯絡管理員私人轉帳即可線上無感<strong>「續杯」</strong>。</p>
+          <p>管理員在後台完成加購後，<strong>您完全不需要重新設定或更換連結</strong>。只需打開 Hiddify 首頁在螢幕頂部輕輕下拉刷新（Pull to Refresh），流量進度條即刻恢復，連線秒級自動恢復正常。</p>
         </div>
       </details>
 
-      <!-- 授權與配置 -->
+      <!-- Q4: 速度與線路 -->
       <details class="faq-item">
-        <summary>
-          <span>首次連線時，系統提示「加入 VPN 配置」是否安全？</span>
+        <summary class="faq-summary">
+          <span class="q-badge badge-speed">線路品質</span>
+          <span class="faq-title">連線速度與品質如何？什麼是「三網優化 VPS」？</span>
           <span class="faq-icon">+</span>
         </summary>
-        <div class="faq-body">
-          <p>這是 iOS、macOS、Windows 及 Android 系統建立本機虛擬網卡（TUN 模式）時的標準系統安全機制。</p>
-          <p>所有網路轉發均在您的裝置本地由開源客戶端安全處理，請安心點擊「允許」或輸入裝置密碼以完成授權。</p>
+        <div class="faq-content">
+          <p>我們的伺服器架設於美西企業級專用 VPS，直連<strong>中國電信 CN2 GIA、中國聯通 9929/AS4837 與中國移動 CMIN2</strong> 三大運營商最高等級之直連專線。</p>
+          <p>一般便宜節點在晚高峰（20:00 - 24:00）丟包率高達 30%~50%，而三網優化線路享有電信級的最高優先級 QoS 佇列保障（單人保障 50Mbps 獨立通道），幾乎零丟包，無論是 YouTube 4K 即點即播、視訊會議或低延遲工作皆全天候順暢。</p>
         </div>
       </details>
 
-      <!-- 分流模式建議 -->
+      <!-- Q5: 隱私保障 -->
       <details class="faq-item">
-        <summary>
-          <span>App 內的「規則分流（Rule）」與「全局代理（Global）」該如何選擇？</span>
+        <summary class="faq-summary">
+          <span class="q-badge badge-privacy">隱私保障</span>
+          <span class="faq-title">服務如何保障用戶隱私？是否有連線日誌？</span>
           <span class="faq-icon">+</span>
         </summary>
-        <div class="faq-body">
-          <p>強烈建議平時保持預設的<strong>「規則分流（Rule / Bypass LAN & mainland）」</strong>模式。在此模式下，境內主流應用（如微信、淘寶、銀行網銀）將直接本機連線，既不佔用專線配額，連線速度也最快。</p>
-          <p>僅有海外受阻站點會自動導向我們的專屬優化專線；若遇到冷門海外服務無法正常訪問，再暫時切換為全局代理即可。</p>
+        <div class="faq-content">
+          <p><strong>堅持 100% 嚴格零日誌（Zero-Log）政策：</strong></p>
+          <p>節點完全由我們自主管理與維護，不依賴任何第三方商業 VPN 公司，後端徹底關閉訪問日誌與連接記錄；我們絕不收集、記錄或分析您的任何瀏覽歷程、DNS 查詢與傳輸數據。</p>
+        </div>
+      </details>
+
+      <!-- Q6: 通訊安全與協議 -->
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span class="q-badge badge-security">通訊安全</span>
+          <span class="faq-title">使用什麼通訊協定？如何防止被阻斷或窺探？</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-content">
+          <p>全線採用目前最強大的 <strong>VLESS-Reality</strong> 協定與 TLS 1.3 / X25519 前向保密端對端加密。</p>
+          <p>此架構將代理傳輸特徵深度偽裝為常規大型網站（如 Cloudflare）的合規 HTTPS 流量，在傳輸鏈路上徹底杜絕中間運營商的深度封包檢測（DPI）與主動探測，保證連線隱形且極度抗干擾。</p>
+        </div>
+      </details>
+
+      <!-- Q7: 大陸 Apple ID -->
+      <details class="faq-item" id="faq-apple-id">
+        <summary class="faq-summary">
+          <span class="q-badge badge-install">客戶端安裝</span>
+          <span class="faq-title">在 App Store 搜尋不到 Hiddify 該如何處理？</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-content">
+          <p>因受區域政策限制，大陸地區 Apple ID 暫未上架海外代理工具。</p>
+          <p><strong>解決方案：</strong>只需在 App Store 退出大陸帳號，登入任意海外地區 Apple ID（美區、日區、港區或台區），再點擊本頁面的 App Store 下載按鈕即可順利安裝。安裝完畢後可隨時換回原帳號，不影響日常使用。</p>
+        </div>
+      </details>
+
+      <!-- Q8: 系統安裝與未受信任提示 -->
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span class="q-badge badge-install">客戶端安裝</span>
+          <span class="faq-title">Windows 或 Mac 安裝時出現「未受信任 / SmartScreen 攔截」？</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-content">
+          <p>這是由於開源社群軟體未向微軟或蘋果支付高額商業代碼簽名費用的正常提示，軟體原始碼完全公開且經安全審計：</p>
+          <p>• <strong>Windows 用戶：</strong>點擊提示視窗上的「其他資訊」或「詳細資訊」，再點擊「仍要執行」即可。</p>
+          <p>• <strong>macOS 用戶：</strong>前往「系統設定」→「隱私權與安全性」→ 滑動至頁面最下方點擊「強制打開」即可。</p>
+        </div>
+      </details>
+
+      <!-- Q9: 系統 VPN 配置授權 -->
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span class="q-badge badge-setting">系統授權</span>
+          <span class="faq-title">首次點擊連線時，手機提示「加入 VPN 配置」是否安全？</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-content">
+          <p><strong>完全安全。</strong>這是 iOS、Android、macOS 系統在建立本機加密虛擬網卡（TUN 模式）時的標準系統安全防護機制。</p>
+          <p>請點擊「允許」並輸入手機解鎖密碼或 Face ID 授權，所有數據均在本地加密後直接出境，不經過任何第三方中轉。</p>
+        </div>
+      </details>
+
+      <!-- Q10: 模式選擇與合規邊界 -->
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span class="q-badge badge-setting">使用指引</span>
+          <span class="faq-title">在 App 內應該選擇「規則分流」還是「全局代理」？</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-content">
+          <p>強烈建議保持預設的<strong>「規則分流（Rule）」</strong>模式。</p>
+          <p>在規則模式下，微信、淘寶、小紅書、台灣網銀等境內正常服務自動直連，不消耗專線流量且速度最快；Google、YouTube、Instagram、Line、海外工作系統自動由專線加速。若遇極少數冷門外國網站打不開時，再手動切換至「全局（Global）」。</p>
+          <p><em>註：為保障全體用戶之 IP 純淨與合規安全，伺服器全面阻斷 BitTorrent (BT) P2P 下載及郵件發信連接埠。</em></p>
         </div>
       </details>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
-    <p>專屬跨境優化骨幹 · 請妥善保管專屬訂閱連結勿外流</p>
+    專屬企業級骨幹專線 · 專人維運管理 · 嚴禁轉發或公開分享專屬訂閱連結
   </footer>
-</main>
 
-<div class="toast" id="toast"><span>請使用包含 ?sub= 參數的專屬網址開啟</span></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function() {
   "use strict";
-  var statusPill = document.getElementById("statusPill");
+
+  var subStatus = document.getElementById("subStatus");
   var statusText = document.getElementById("statusText");
-  var heroImportBtn = document.getElementById("heroImportBtn");
-  var toast = document.getElementById("toast");
+  var importBtn = document.getElementById("importBtn");
+  var toastEl = document.getElementById("toast");
   var toastTimer = null;
 
   function showToast(msg) {
     if (toastTimer) clearTimeout(toastTimer);
-    toast.textContent = msg;
-    toast.classList.add("show");
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
     toastTimer = setTimeout(function() {
-      toast.classList.remove("show");
+      toastEl.classList.remove("show");
     }, 2800);
   }
 
-  function getSubUrl() {
-    var query = window.location.search;
-    var match = query.match(/[?&]sub=([^&]*)/);
+  // 從網址 ?sub= 取得專屬訂閱參數，防範硬編碼洩漏
+  function getSubParam() {
+    var match = window.location.search.match(/[?&]sub=([^&]*)/);
     if (match && match[1]) {
       try { return decodeURIComponent(match[1]); }
       catch (e) { return match[1]; }
     }
     try {
-      var param = new URLSearchParams(query).get("sub");
-      if (param) return param;
+      var val = new URLSearchParams(window.location.search).get("sub");
+      if (val) return val;
     } catch (e) {}
     return "";
   }
 
   function init() {
-    var sub = getSubUrl().trim();
-    if (sub && /^https?:\/\/\S+$/i.test(sub)) {
-      statusPill.classList.add("ready");
-      statusText.textContent = "專屬節點憑證已就緒，可立即匯入";
-      heroImportBtn.href = "hiddify://install-sub?url=" + encodeURIComponent(sub);
-      heroImportBtn.classList.remove("disabled");
+    var subUrl = getSubParam();
+    if (subUrl && /^https?:\/\/\S+$/i.test(subUrl)) {
+      subStatus.classList.add("ready");
+      statusText.textContent = "已辨識專屬訂閱授權 · 點擊按鈕直接匯入";
+      importBtn.classList.remove("disabled");
+      importBtn.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "hiddify://install-sub?url=" + encodeURIComponent(subUrl);
+        showToast("正在喚醒 Hiddify 客戶端…");
+      };
     } else {
-      statusPill.classList.remove("ready");
-      statusText.textContent = "尚未載入專屬憑證，請透過專屬連結開啟";
-      heroImportBtn.href = "#";
-      heroImportBtn.classList.add("disabled");
+      subStatus.classList.remove("ready");
+      statusText.textContent = "尚未載入專屬訂閱 · 請透過專屬激活連結開啟本頁";
+      importBtn.classList.add("disabled");
+      importBtn.onclick = function(e) {
+        e.preventDefault();
+        showToast("請由管理員發送的專屬激活網址開啟本頁");
+      };
     }
   }
-
-  heroImportBtn.addEventListener("click", function(e) {
-    if (heroImportBtn.classList.contains("disabled")) {
-      e.preventDefault();
-      showToast("尚未載入專屬連線憑證");
-    }
-  });
 
   init();
 })();
 </script>
+
 </body>
 </html>
